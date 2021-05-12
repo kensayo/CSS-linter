@@ -1,7 +1,16 @@
 require_relative '../lib/files'
+require_relative '../lib/errors'
 
 files = Files.new
+errors = Errors.new
+lines = []
+tokens = []
 
-files.find_files
+files.css_path.each do |file|
+  puts "Checking #{file}"
+  lines = files.return_lines(file)
+  lines.each do |line|
+    p line.split(/(?<= )/)
+  end
+end
 
-files.css_path.each { |file| p File.open(file).read }

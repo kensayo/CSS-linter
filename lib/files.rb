@@ -5,11 +5,16 @@ class Files
 
   def initialize
     @css_path = []
-  end
-
-  def find_files
-    Find.find('.') do |css|
+    Find.find('../') do |css|
       @css_path.push(css) if css =~ /\.css/
     end
+  end
+
+  def return_lines(css_file)
+    lines = File.open(css_file).read.split("\n")
+  end
+
+  def return_tokens(line)
+    line = line.split(/ /)
   end
 end
