@@ -2,14 +2,25 @@ require_relative '../lib/files'
 require_relative '../lib/errors'
 
 files = Files.new
-errors = Errors.new
+errors = []
+i = 0
 
 files.css_path.each do |file|
   puts "Checking #{file}"
   lines = files.return_lines(file)
   line_count = 1
+  errors.push(Errors.new(file))
   lines.each do |line|
-    errors.error_check(line, line_count)
+    errors[i].error_check(line, line_count)
     line_count += 1
+  end
+  i += 1
+end
+
+errors.each do |error|
+  if error.error.empty?
+    puts "\nNo errors".to_s.colorize(:green) + " in #{error.file_name}"
+  else
+    error.print_error
   end
 end

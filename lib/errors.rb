@@ -1,16 +1,21 @@
+require 'colorize'
+
 class Errors
-  def initialize
-    @file = ''
-    @line = []
-    @column = []
+  attr_reader :error, :file_name
+
+  def initialize(file_name)
+    @file_name = file_name
+    @error = []
     @open_bracket = 0
-    @break_line = 0
+    @previous_line = ''
   end
 
   # @param [Content of Line] line
   # @param [Number of line] line_count
   def error_check(line, line_count)
     case line
+    when /:[\w\s-]*{/
+      open_bracket(line, line_count)
     when /{/
       open_bracket(line, line_count)
     when /:/
@@ -20,45 +25,75 @@ class Errors
     when ''
       empty_line(line, line_count)
     when /\w/
+      p line
       syntax_error(line, line_count)
     end
+    @previous_line = line
   end
 
   private
 
-  def open_bracket(_line, line_number)
-    @break_line = 0
-    # puts "Single white-space before {" unless line =~ /^(((#|\.)?\w*)|\*)( ((#|\.)?\w+))? {$/
-    puts 'Opening bracket'
+  def create_error(message, line, col)
+    error_hash = { 'message' => message, 'line' => line, 'col' => col }
+    @error.push(error_hash)
+  end
+
+  def open_bracket(line, line_number)
     if @open_bracket.nonzero?
-      puts "Missing closing bracket for line #{@open_bracket}"
+      create_error('Missing closing bracket', @open_bracket)
       @open_bracket = line_number
     end
+
+    if line =~ /\s\s+{$/
+      create_error('Unexpected whitespace before {', line_number)
+    elsif line =~ /{\s+$/
+      create_error('Unexpected whitespace after {', line_number)
+    elsif (line =~ /^((#|.)?[\w-]*(:[\w-]*)?|\*)(,? ((#|\.)?[\w-]+)(:[\w-]*)?)* {$/).nil?
+      create_error('CSS Syntax Error', line_number)
+    end
     @open_bracket = line_number
+    puts 'Opening bracket'
   end
 
-  def line_code(_line, _line_number)
-    @break_line = 0
-    puts "\tCSS line code"
-  end
+  # rubocop:disable Metrics/CyclomaticComplexity
 
-  def closing_bracket(line, line_number)
-    @break_line = 0
+  def line_code(line, line_number)
+    create_error('Expected indentation of 2 spaces', line_number,'') unless line =~ /^\s\s\w/
+    create_error('Unexpected whitespace before :', line_number, line =~ /[a-z]\s:/) if line =~ /[a-z]\s:/
+    create_error('Expected single whitespace after :', line_number, '') unless line =~ /:\s[\w|#|\-"']/
+    create_error('Missing semicolon', line_number, line =~ /\w$/) if line =~ /\w$/
+    create_error('Unexpected whitespace before ;', line_number, line =~ /\w\s;$/) if line =~ /\w\s;$/
+    create_error('Unexpected whitespace after ;', line_number, line =~ /;\s+$/) if line =~ /;\s+$/
+    create_error('Expected single whitespace after ,', line_number, line =~ /,\s\s+/) if line =~ /,\s\s+/
+    create_error('Unexpected whitespace before ,', line_number, line =~ /\s+,/) if line =~ /\s+,/
+  end
+  # rubocop:enable Metrics/CyclomaticComplexity
+
+  def closing_bracket(_line, line_number)
     puts 'Closing bracket'
+    create_error('Unexpected break line', line_number) if @previous_line == ''
     if @open_bracket.zero?
-      p line
-      puts "Missing opening bracket for line #{line_number}"
+      create_error('Missing opening bracket', line_number)
       @open_bracket = line_number
     end
     @open_bracket = 0
   end
 
-  def empty_line(_line, line_number)
-    puts "Single break line #{@break_line}" if @break_line != 0
-    @break_line = line_number
+  def empty_line(line, line_number)
+    create_error('Expected single break line', line_number) if @previous_line == line
+    create_error('Unexpected break line', line_number) if @previous_line =~ /:/
   end
 
   def syntax_error(_line, line_number)
-    puts "CSS Syntax Error #{line_number}"
+    create_error('CSS Syntax Error', line_number)
+  end
+
+  public
+
+  def print_error
+    puts "\nError".to_s.colorize(:red) + " in file #{@file_name}"
+    @error.each do |error|
+      puts "\tLine > ".to_s.colorize(:yellow) + "#{error['line']} \t::" + ' × '.colorize(:red) + (error['message']).to_s
+    end
   end
 end
