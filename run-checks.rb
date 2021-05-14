@@ -1,2 +1,2 @@
 #!/usr/bin/env ruby
-require_relative './bin/main'
+require_relative './bin/main.rb'
