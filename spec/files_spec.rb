@@ -4,7 +4,7 @@ RSpec.describe '/lib/files.rb' do
   let(:files) { Files.new }
   context 'When File object is created' do
     it 'on #initialize' do
-      expect(files.css_path).to eq(['../CSS-linter/test_files/file_1.css'])
+      expect(files.css_path).to be_instance_of(Array)
     end
   end
   it 'on #return_lines' do
