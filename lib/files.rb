@@ -11,10 +11,10 @@ class Files
   end
 
   def return_lines(css_file)
-    lines = File.open(css_file).read.split("\n")
+    File.open(css_file).read.split("\n")
   end
 
   def return_tokens(line)
-    line = line.split(/ /)
+    line.split(/ /)
   end
 end
