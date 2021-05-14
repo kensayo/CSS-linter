@@ -128,6 +128,7 @@ This project was built using these technologies.
 * Rubocop
 * Ruby Mine
 
+
 ## Contributors
 
 **👤 Kenny Ortega**
