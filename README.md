@@ -1,76 +1,155 @@
-![](https://img.shields.io/badge/Microverse-blueviolet)
+# CSS Linter built with Ruby
 
-# Project Name
+<!-- ABOUT THE PROJECT -->
+## About The Project
 
-> One paragraph statement about the project.
+This is a simple linter made for CSS, check for good practices in CSS files
 
-![screenshot](./app_screenshot.png)
+## Rules
 
-Additional description about the project and its features.
+**Indentation**
+* 2 space indentation rule
 
-## Built With
+bad code:
+```css
+  a {
+  color: red;
+  }
+```
 
-- Major languages
-- Frameworks
-- Technologies used
+good code:
+```css
+  a {
+    color: red;
+  }
+```
 
-## Live Demo
+**Line Format**
+* One line checking
+* Line missing between css blocks
 
-[Live Demo Link](https://livedemo.com)
+bad code:
+```css
+h1 {
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 19px;
+  color: blue;  
+}
+h2 {
+  color: #111111;
+  font-size: 16px;
+}
+```
+
+good code:
+```css
+h1 {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 19px;
+    color: blue;
+}
+
+h2 {
+    color: #111111;
+    font-size: 16px;
+}
+```
+
+**Spacing**
+* Checking for missing spacing after **:** or **,**
+* Checking for no whitespace before  **;** or **:**
+* Checking for missing spacing after **{**
+* Checking for line break after **{** or **}** and after each property declaration
+
+bad code:
+
+```css
+a,p {
+    color: red ;
+    font-weight: bold;
+}
+
+div {
+    color: blue;
+    font-size : 18px;
+}
+```
+
+good code:
+```css
+a, p {
+  color: red;
+  font-weight: bold;
+}
+
+div {
+  color: blue;
+  font-size: 18px;
+}
+```
 
 
-## Getting Started
+<!-- ABOUT THE PROJECT -->
+## Usage
 
-**This is an example of how you may give instructions on setting up your project locally.**
-**Modify this file to match your project, remove sections that don't apply. For example: delete the testing section if the currect project doesn't require testing.**
+The CSS Linter check your CSS file looking for common error and bad practices. Compare each line with a set of rules.
 
-
-To get a local copy up and running follow these simple example steps.
-
-### Prerequisites
-
-### Setup
-
-### Install
-
-### Usage
-
-### Run tests
-
-### Deployment
+If an error is found, you can check the error message and the line where is generated.
 
 
+**Examples**
+- Bad Indentation, expected two spaces before property declaration
+- Spacing, Expected single space after **:** and **,**
+- Spacing, Unexpected spaces before **:** and **,**
+- Spacing, Unexpected spaces after **{** or **;**
+- Syntax, Good syntax when creating classes or declarations
+- Syntax, Expected open and close curly brackets
+- Line Format, Unexpected break lines
+- Line Format, Expected single break line between classes
 
-## Authors
+## Install
 
-👤 **Author1**
+* Install **Ruby** on your computer from [here](https://www.ruby-lang.org/en/downloads/)
+  
+* [Download](https://github.com/kensayo/CSS-linter/archive/refs/heads/develop.zip) or clone this repo:
+    - In case of clone, clone into root directory of your HTML/CSS project
+    - Or move you CSS files inside CSS-linter
 
-- GitHub: [@githubhandle](https://github.com/githubhandle)
-- Twitter: [@twitterhandle](https://twitter.com/twitterhandle)
-- LinkedIn: [LinkedIn](https://linkedin.com/in/linkedinhandle)
+* Navigate to root directory of _CSS-linter_ folder:
+```
+$ run-checks
+```
+![Screenshot](img/screenshot.png)
 
-👤 **Author2**
+### Built With
+This project was built using these technologies.
+* Ruby
+* Rspec
+* Rubocop
+* Ruby Mine
 
-- GitHub: [@githubhandle](https://github.com/githubhandle)
-- Twitter: [@twitterhandle](https://twitter.com/twitterhandle)
-- LinkedIn: [LinkedIn](https://linkedin.com/in/linkedinhandle)
+## Contributors
 
-## 🤝 Contributing
+**👤 Kenny Ortega**
 
-Contributions, issues, and feature requests are welcome!
+- GitHub: [kensayo](https://github.com/kensayo)
+- Twitter: [@kensayo](https://twitter.com/kensayo)
+- LinkedIn: [LinkedIn](https://www.linkedin.com/in/kenny-ortega-3580aa33/)
 
-Feel free to check the [issues page](../../issues/).
+## :handshake: Contributing
+Contributions, issues and feature requests are welcome!
+Feel free to check the [issues page](https://github.com/kensayo/CSS-linter/issues)
 
 ## Show your support
+Give a :star: if you like this project!
 
-Give a ⭐️ if you like this project!
 
-## Acknowledgments
-
-- Hat tip to anyone whose code was used
-- Inspiration
-- etc
+<!-- ACKNOWLEDGEMENTS -->
+## Acknowledgements
+* [Microverse](https://www.microverse.org/)
+* [The Odin Project](https://www.theodinproject.com/)
+* [Ruby Documentation](https://www.ruby-lang.org/en/documentation/)
 
 ## 📝 License
 
-This project is [MIT](./MIT.md) licensed.
+This project is [MIT](https://opensource.org/licenses/MIT) licensed.
