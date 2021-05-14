@@ -14,7 +14,4 @@ class Files
     File.open(css_file).read.split("\n")
   end
 
-  def return_tokens(line)
-    line.split(/ /)
-  end
 end
