@@ -19,7 +19,7 @@ end
 
 errors.each do |error|
   if error.error.empty?
-    puts "\nNo errors".to_s.colorize(:green) + " in #{error.file_name}"
+    puts "\n#{'No errors'.colorize(:green)} in #{error.file_name.colorize(:magenta)}"
   else
     error.print_error
   end

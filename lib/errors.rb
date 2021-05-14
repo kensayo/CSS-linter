@@ -24,8 +24,7 @@ class Errors
       closing_bracket(line, line_count)
     when ''
       empty_line(line, line_count)
-    when /\w/
-      p line
+    when /[\ws]+/
       syntax_error(line, line_count)
     end
     @previous_line = line
@@ -34,34 +33,33 @@ class Errors
   private
 
   def create_error(message, line, col)
-    error_hash = { 'message' => message, 'line' => line, 'col' => col }
+    error_hash = { 'message' => message, 'line' => line, 'col' => col == 1 ? col : (col + 2) }
     @error.push(error_hash)
   end
 
   def open_bracket(line, line_number)
     if @open_bracket.nonzero?
-      create_error('Missing closing bracket', @open_bracket)
+      create_error('Missing closing bracket', @open_bracket, 1)
       @open_bracket = line_number
     end
 
     if line =~ /\s\s+{$/
-      create_error('Unexpected whitespace before {', line_number)
+      create_error('Unexpected whitespace before {', line_number, line =~ /\s\s+{$/)
     elsif line =~ /{\s+$/
-      create_error('Unexpected whitespace after {', line_number)
+      create_error('Unexpected whitespace after {', line_number, line =~ /{\s+$/)
     elsif (line =~ /^((#|.)?[\w-]*(:[\w-]*)?|\*)(,? ((#|\.)?[\w-]+)(:[\w-]*)?)* {$/).nil?
-      create_error('CSS Syntax Error', line_number)
+      create_error('CSS Syntax Error', line_number, line =~ /{\s+$/)
     end
     @open_bracket = line_number
-    puts 'Opening bracket'
   end
 
   # rubocop:disable Metrics/CyclomaticComplexity
 
   def line_code(line, line_number)
-    create_error('Expected indentation of 2 spaces', line_number,'') unless line =~ /^\s\s\w/
+    create_error('Expected indentation of 2 spaces', line_number, 1) unless line =~ /^\s\s\w/
     create_error('Unexpected whitespace before :', line_number, line =~ /[a-z]\s:/) if line =~ /[a-z]\s:/
-    create_error('Expected single whitespace after :', line_number, '') unless line =~ /:\s[\w|#|\-"']/
-    create_error('Missing semicolon', line_number, line =~ /\w$/) if line =~ /\w$/
+    create_error('Expected single whitespace after :', line_number, 1) unless line =~ /:\s[\w|#\-"']/
+    create_error('Semicolon at the end on line', line_number, line =~ /\w$/) if line =~ /\w$/
     create_error('Unexpected whitespace before ;', line_number, line =~ /\w\s;$/) if line =~ /\w\s;$/
     create_error('Unexpected whitespace after ;', line_number, line =~ /;\s+$/) if line =~ /;\s+$/
     create_error('Expected single whitespace after ,', line_number, line =~ /,\s\s+/) if line =~ /,\s\s+/
@@ -70,30 +68,31 @@ class Errors
   # rubocop:enable Metrics/CyclomaticComplexity
 
   def closing_bracket(_line, line_number)
-    puts 'Closing bracket'
-    create_error('Unexpected break line', line_number) if @previous_line == ''
+    # create_error('Unexpected break12 line', line_number, 1) if @previous_line !~ /:/
     if @open_bracket.zero?
-      create_error('Missing opening bracket', line_number)
+      create_error('Missing opening bracket', line_number, 1)
       @open_bracket = line_number
     end
     @open_bracket = 0
   end
 
   def empty_line(line, line_number)
-    create_error('Expected single break line', line_number) if @previous_line == line
-    create_error('Unexpected break line', line_number) if @previous_line =~ /:/
+    create_error('Expected single break line', line_number, 1) if @previous_line == line
+    create_error('Unexpected break line', line_number, 1) if @previous_line =~ /:/
+    create_error('Unexpected break line', line_number, 1) if @previous_line =~ /{/
   end
 
   def syntax_error(_line, line_number)
-    create_error('CSS Syntax Error', line_number)
+    create_error('CSS Syntax Error', line_number, 1)
   end
 
   public
 
   def print_error
-    puts "\nError".to_s.colorize(:red) + " in file #{@file_name}"
+    puts "\nError".to_s.colorize(:red) + ' in file '.to_s + @file_name.colorize(:blue)
     @error.each do |error|
-      puts "\tLine > ".to_s.colorize(:yellow) + "#{error['line']} \t::" + ' × '.colorize(:red) + (error['message']).to_s
+      line_col_error = "\t#{error['line']}:#{error['col']}"
+      puts "#{line_col_error.colorize(:yellow)}\t::#{" × ".colorize(:red)} #{error['message']}"
     end
   end
 end
