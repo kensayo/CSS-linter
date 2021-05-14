@@ -13,5 +13,4 @@ class Files
   def return_lines(css_file)
     File.open(css_file).read.split("\n")
   end
-
 end
