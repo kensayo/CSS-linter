@@ -107,19 +107,19 @@ If an error is found, you can check the error message and the line where is gene
 
 ## Install & Run
 
-* Make sure that **Ruby Environment** is installed in your computer (try to run _ruby_ from your prompt), if not you can installed from [here.](https://www.ruby-lang.org/en/downloads/)
+* Make sure that **Ruby Environment** is installed in your computer (try to run _ruby_ from your prompt), if not you can install it from [here.](https://www.ruby-lang.org/en/downloads/)
   
 * [Download](https://github.com/kensayo/CSS-linter/archive/refs/heads/develop.zip) and unzip **or** [clone this repository](https://docs.github.com/es/github/creating-cloning-and-archiving-repositories/cloning-a-repository):
 
-* Make sure to unzip or clone this repository into you project folder, if not you can also you can unzip or clone in any folder, but you need to move manually your _**CSS**_ files into _**CSS-linter**_.
+* Make sure to unzip or clone this repository into you project folder, if not you can also unzip or clone on any folder, but you need to move manually your _**CSS**_ files into _**CSS-linter**_ folder.
 
 * Open your terminal and navigate to _CSS-linter_ directory folder using [_**cd**_](https://www.google.com/search?q=how+to+use+cd+command&oq=how+to+use+cd) command (you can also use **ls** to check folders)
 
-* After you check you are inside _**CSS-linter**_ folder, you can now run the program with:
+* After you verify that you are on _**CSS-linter**_ folder, you can now run the program with:
 ```
   $ run_linter
 ```
-* Fix errors and rerun program.
+* Fix errors and run the program again to verify everything is ok.
 
 * Repeat until all errors are fixed. 
 
