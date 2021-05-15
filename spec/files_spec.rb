@@ -7,7 +7,7 @@ RSpec.describe '/lib/files.rb' do
       expect(files.css_path).to be_instance_of(Array)
     end
   end
-  it 'on #return_lines' do
+  it 'on #return_lines must be an Array' do
     expect(files.return_lines(files.css_path[0])).to be_instance_of(Array)
   end
 end

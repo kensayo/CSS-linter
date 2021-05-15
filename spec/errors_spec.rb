@@ -26,7 +26,7 @@ RSpec.describe '/lib/errors.rb' do
         error.error_check(line2, 0)
         expect(error.error.empty?).to be(true)
       end
-      it 'in ID Name' do
+      it 'On ID Name' do
         error.error_check(line3, 0)
         expect(error.error.empty?).to be(true)
       end
@@ -36,19 +36,19 @@ RSpec.describe '/lib/errors.rb' do
       end
     end
     context 'When there are errors in CSS' do
-      it 'in Class name' do
+      it 'fails to check class name' do
         error.error_check(line5, 0)
         expect(error.error.empty?).to be(false)
       end
-      it 'on Assignation' do
+      it 'fails to assignation' do
         error.error_check(line6, 0)
         expect(error.error.empty?).to be(false)
       end
-      it 'in ID Name' do
+      it 'fails reading filename' do
         error.error_check(line7, 0)
         expect(error.error.empty?).to be(false)
       end
-      it 'on Class and Element' do
+      it 'Fails ' do
         error.error_check(line8, 0)
         expect(error.error.empty?).to be(false)
       end

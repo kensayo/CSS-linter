@@ -85,11 +85,9 @@ a, p {
 div {
   color: blue;
   font-size: 18px;
-}
+} 
 ```
 
-
-<!-- ABOUT THE PROJECT -->
 ## Usage
 
 The CSS Linter check your CSS file looking for common error and bad practices. Compare each line with a set of rules.
@@ -107,19 +105,45 @@ If an error is found, you can check the error message and the line where is gene
 - Line Format, Unexpected break lines
 - Line Format, Expected single break line between classes
 
-## Install
+## Install & Run
 
-* Install **Ruby** on your computer from [here](https://www.ruby-lang.org/en/downloads/)
+* Make sure that **Ruby Environment** is installed in your computer (try to run _ruby_ from your prompt), if not you can installed from [here.](https://www.ruby-lang.org/en/downloads/)
   
-* [Download](https://github.com/kensayo/CSS-linter/archive/refs/heads/develop.zip) or clone this repo:
-    - In case of clone, clone into root directory of your HTML/CSS project
-    - Or move you CSS files inside CSS-linter
+* [Download](https://github.com/kensayo/CSS-linter/archive/refs/heads/develop.zip) and unzip **or** [clone this repository](https://docs.github.com/es/github/creating-cloning-and-archiving-repositories/cloning-a-repository):
 
-* Navigate to root directory of _CSS-linter_ folder:
+* Make sure to unzip or clone this repository into you project folder, if not you can also you can unzip or clone in any folder, but you need to move manually your _**CSS**_ files into _**CSS-linter**_.
+
+* Open your terminal and navigate to _CSS-linter_ directory folder using [_**cd**_](https://www.google.com/search?q=how+to+use+cd+command&oq=how+to+use+cd) command (you can also use **ls** to check folders)
+
+* After you check you are inside _**CSS-linter**_ folder, you can now run the program with:
 ```
-$ run-checks
+  $ run_linter
 ```
+* Fix errors and rerun program.
+
+* Repeat until all errors are fixed. 
+
+## Screenshot
+
 ![Screenshot](img/screenshot.png)
+```
+Example output, when there are errors in some files.
+```
+
+## Output interpretation
+
+* Print checked folders.
+* Mark when there is an error on the previously checked file printing CSS file path.
+* First part print _XX:YY_ where _XX_ mark the line and _YY_ marks the column.
+* After _**×**_ is printed the error message with the specification.
+
+## Run test
+
+* You can run tests using _**RSpec**_
+
+* Move to _**CSS linter**_ folder using [_**cd**_](https://www.google.com/search?q=how+to+use+cd+command&oq=how+to+use+cd) command (you can also use **ls** to check folders)
+
+* Now that you are in the main folder, you can run _RSpec_ 
 
 ### Built With
 This project was built using these technologies.
@@ -127,7 +151,6 @@ This project was built using these technologies.
 * Rspec
 * Rubocop
 * Ruby Mine
-
 
 ## Contributors
 

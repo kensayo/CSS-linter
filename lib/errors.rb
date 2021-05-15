@@ -64,7 +64,6 @@ class Errors
   # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
   def closing_bracket(_line, line_number)
-    # create_error('Unexpected break12 line', line_number, 1) if @previous_line !~ /:/
     if @open_bracket.zero?
       create_error('Missing opening bracket', line_number, 1)
       @open_bracket = line_number
