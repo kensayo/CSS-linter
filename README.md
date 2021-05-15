@@ -109,7 +109,7 @@ If an error is found, you can check the error message and the line where is gene
 
 * Make sure that **Ruby Environment** is installed in your computer (try to run _ruby_ from your prompt), if not you can install it from [here.](https://www.ruby-lang.org/en/downloads/)
   
-* [Download](https://github.com/kensayo/CSS-linter/archive/refs/heads/develop.zip) and unzip **or** [clone this repository](https://docs.github.com/es/github/creating-cloning-and-archiving-repositories/cloning-a-repository):
+* [Download](https://github.com/kensayo/CSS-linter/archive/refs/heads/develop.zip) and unzip **or** [clone this repository](https://docs.github.com/es/github/creating-cloning-and-archiving-repositories/cloning-a-repository)
 
 * Make sure to unzip or clone this repository into you project folder, if not you can also unzip or clone on any folder, but you need to move manually your _**CSS**_ files into _**CSS-linter**_ folder.
 
@@ -119,7 +119,9 @@ If an error is found, you can check the error message and the line where is gene
 ```
   $ run_linter
 ```
-* Fix errors and run the program again to verify everything is ok.
+* You will get if there are errors or not in your code. 
+
+* Fix errors in your CSS file and run the program again to verify everything is ok.
 
 * Repeat until all errors are fixed. 
 
